@@ -10,7 +10,8 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 @Configuration
 @EnableAspectJAutoProxy
 @EnableWebMvc
-@ComponentScan({ "com.cafe24.laundry24.controller","com.cafe24.laundry24.exception" })
+@ComponentScan({ "com.cafe24.laundry24.controller"
+	,"com.cafe24.laundry24.exception" })
 @Import({TestMVCConfig.class})
 public class TestWebConfig{
 	

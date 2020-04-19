@@ -1,7 +1,10 @@
 package com.cafe24.laundry24.controller.api;
 
+import static org.hamcrest.CoreMatchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import org.junit.After;
@@ -23,13 +26,12 @@ import org.springframework.web.context.WebApplicationContext;
 
 import com.cafe24.laundry24.config.AppConfig;
 import com.cafe24.laundry24.config.TestWebConfig;
-import com.cafe24.laundry24.config.WebConfig;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { AppConfig.class, TestWebConfig.class })
 @WebAppConfiguration
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class MainControllerTest {
+public class TestControllerTest {
 
 	private MockMvc mockMvc;
 	
@@ -49,26 +51,17 @@ public class MainControllerTest {
 	public void cleanup() {}
 	
 	@Test
-	public void first_test() throws Exception {
+	public void test() throws Exception {
 		ResultActions resultActions =
 				mockMvc
 				.perform(
-						get("/hello").contentType(MediaType.APPLICATION_JSON));
+						get("/test").contentType(MediaType.APPLICATION_JSON));
 		
 		resultActions
+		.andDo(print())
 		.andExpect(status().isOk());
-						
-	}
-	
-	@Test
-	public void second_test() throws Exception {
-		ResultActions resultActions =
-				mockMvc
-				.perform(
-						get("/hello2").contentType(MediaType.APPLICATION_JSON));
-		
-		resultActions
-		.andExpect(status().isNotFound());
+		//.andExpect(jsonPath("$.result", is("success")))
+		//.andExpect(jsonPath("$.data", is("My test")));
 						
 	}
 }
